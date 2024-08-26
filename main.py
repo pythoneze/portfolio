@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas
+import pandas as pd
 
 st.set_page_config(layout="wide")
 
@@ -20,14 +20,14 @@ text = """
 """
 st.write(text)
 
-col3, col4 = st.columns(2)
+col3, empty_col, col4 = st.columns([1.5, 0.5, 1.5])
 
-df = pandas.read_csv("data.csv", sep=";")
+df = pd.read_csv("data.csv", sep=";")
 
-with col3:
-    for index, row in df[:10].iterrows():
+for i, row in df.iterrows():
+    column = col3 if i < len(df) // 2 else col4
+    with column:
         st.header(row["title"])
-
-with col4:
-    for index, row in df[10:].iterrows():
-        st.header(row["title"])
+        st.write(row["description"])
+        st.image(f"images/{row['image']}")
+        st.write(f"[Source Code]({row['url']})")
