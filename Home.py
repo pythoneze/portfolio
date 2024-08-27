@@ -11,21 +11,20 @@ with col1:
 with col2:
     st.title("Ezequiel González Lagos")
     introduction = """
-        Hi, I am Ezequiel! I am a Python programmer. I am a self-taught developer. 
+        Hello! I'm Ezequiel, a Python programmer who has honed my skills through self-directed study. I'm enthusiastic about applying my programming knowledge to tackle challenges and create impactful solutions.
     """
     st.info(introduction)
 
-text = """
-    Below you can find some of the apps I have built in Python. Feel free to contact me!
-"""
-st.write(text)
+st.write("Below, I will showcase my coding skills and projects.")
 
 col3, empty_col, col4 = st.columns([1.5, 0.5, 1.5])
 
 df = pd.read_csv("data.csv", sep=";")
 
+midpoint = len(df) // 2 + len(df) % 2
+
 for i, row in df.iterrows():
-    column = col3 if i < len(df) // 2 else col4
+    column = col3 if i < midpoint else col4
     with column:
         st.header(row["title"])
         st.write(row["description"])
